@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Etyka — materiał na zaliczenie (5.0)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,900&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f6f1e7;
+    --paper-2:#efe8da;
+    --ink:#23201b;
+    --ink-soft:#4a4640;
+    --oxblood:#7a2230;
+    --oxblood-deep:#5c1722;
+    --gold:#b08322;
+    --line:#d8cfbd;
+    --card:#fffdf8;
+    --teal:#1f5d57;
+    --display:"Fraunces",Georgia,serif;
+    --body:"Newsreader",Georgia,serif;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;background:var(--paper);color:var(--ink);
+    font-family:var(--body);font-size:19px;line-height:1.62;
+    background-image:radial-gradient(circle at 12% 8%, rgba(176,131,34,.06), transparent 40%),
+                     radial-gradient(circle at 88% 92%, rgba(122,34,48,.05), transparent 42%);
+  }
+  /* progress bar */
+  #progress{position:fixed;top:0;left:0;height:4px;width:0;background:linear-gradient(90deg,var(--oxblood),var(--gold));z-index:100;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 22px;}
+
+  /* HERO */
+  header.hero{padding:64px 0 30px;border-bottom:3px double var(--oxblood);}
+  .kicker{font-family:var(--body);letter-spacing:.32em;text-transform:uppercase;font-size:.74rem;color:var(--oxblood);font-weight:600;}
+  h1{font-family:var(--display);font-weight:900;font-size:clamp(2.6rem,7vw,5rem);line-height:.98;margin:.18em 0 .1em;letter-spacing:-.01em;}
+  h1 .em{font-style:italic;color:var(--oxblood);font-weight:500;}
+  .lede{font-size:1.18rem;color:var(--ink-soft);max-width:62ch;}
+  .meta-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px;}
+  .chip{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:7px 15px;font-size:.86rem;color:var(--ink-soft);}
+  .chip b{color:var(--ink);}
+
+  /* TOC */
+  nav.toc{margin:34px 0 10px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 26px;box-shadow:0 1px 0 #fff inset, 0 12px 30px -22px rgba(60,40,20,.4);}
+  nav.toc h2{font-family:var(--display);font-size:1.05rem;margin:0 0 12px;letter-spacing:.04em;text-transform:uppercase;color:var(--oxblood);}
+  .toc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:4px 26px;}
+  .toc-grid a{display:flex;gap:12px;align-items:baseline;text-decoration:none;color:var(--ink);padding:6px 4px;border-bottom:1px dotted transparent;transition:.18s;}
+  .toc-grid a:hover{color:var(--oxblood);border-bottom-color:var(--line);transform:translateX(3px);}
+  .toc-grid .n{font-family:var(--display);font-weight:600;color:var(--oxblood);min-width:1.6em;}
+
+  /* SECTIONS */
+  section.topic{padding:48px 0 8px;border-top:1px solid var(--line);scroll-margin-top:14px;}
+  .topic-head{display:flex;gap:18px;align-items:flex-start;}
+  .num{font-family:var(--display);font-weight:900;font-size:clamp(2.2rem,5vw,3.4rem);line-height:1;color:var(--paper);
+       -webkit-text-stroke:1.6px var(--oxblood);text-stroke:1.6px var(--oxblood);min-width:1.7em;}
+  h2.tt{font-family:var(--display);font-weight:600;font-size:clamp(1.5rem,3.4vw,2.1rem);line-height:1.08;margin:.1em 0 .1em;}
+  .topic-body{margin-top:14px;}
+  .topic p{margin:.55em 0;}
+  .topic ul{margin:.4em 0 .9em;padding-left:1.25em;}
+  .topic li{margin:.32em 0;}
+  .topic li::marker{color:var(--oxblood);}
+  strong{color:var(--ink);font-weight:600;}
+  .term{color:var(--oxblood-deep);font-weight:600;font-style:italic;}
+
+  /* boxes */
+  .law{background:linear-gradient(180deg,#fbf6ea,#f6efdd);border-left:4px solid var(--gold);border-radius:0 12px 12px 0;padding:14px 18px;margin:14px 0;font-size:.97em;}
+  .law .lbl{display:inline-block;font-family:var(--body);font-weight:600;text-transform:uppercase;letter-spacing:.14em;font-size:.7rem;color:var(--gold);margin-bottom:4px;}
+  .law .art{font-weight:600;color:var(--oxblood-deep);}
+  .tip{background:#f0f4f0;border-left:4px solid var(--teal);border-radius:0 12px 12px 0;padding:14px 18px;margin:14px 0;font-size:.97em;}
+  .tip .lbl{display:inline-block;font-family:var(--body);font-weight:600;text-transform:uppercase;letter-spacing:.14em;font-size:.7rem;color:var(--teal);margin-bottom:4px;}
+  .latin{font-style:italic;color:var(--oxblood);}
+
+  /* compare table */
+  .cmp{width:100%;border-collapse:collapse;margin:14px 0;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:.95rem;}
+  .cmp th,.cmp td{padding:11px 14px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line);}
+  .cmp th{background:var(--oxblood);color:#fdf3ea;font-family:var(--display);font-weight:600;letter-spacing:.02em;}
+  .cmp tr:last-child td{border-bottom:none;}
+  .cmp td:first-child{font-weight:600;color:var(--oxblood-deep);width:30%;}
+
+  /* FLASHCARDS */
+  .study{padding:54px 0;border-top:3px double var(--oxblood);}
+  .study h2.sec{font-family:var(--display);font-size:clamp(1.8rem,4vw,2.6rem);font-weight:900;margin:0;}
+  .study h2.sec .em{font-style:italic;color:var(--oxblood);font-weight:500;}
+  .study .sub{color:var(--ink-soft);max-width:60ch;margin:.3em 0 0;}
+  .fc-stage{margin:26px 0;display:flex;flex-direction:column;align-items:center;gap:18px;}
+  .flashcard{width:100%;max-width:720px;height:280px;perspective:1600px;cursor:pointer;}
+  .fc-inner{position:relative;width:100%;height:100%;transition:transform .55s cubic-bezier(.2,.7,.3,1);transform-style:preserve-3d;}
+  .flashcard.flip .fc-inner{transform:rotateY(180deg);}
+  .fc-face{position:absolute;inset:0;backface-visibility:hidden;border-radius:18px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:30px 34px;border:1px solid var(--line);box-shadow:0 18px 40px -26px rgba(60,30,20,.6);}
+  .fc-front{background:var(--card);}
+  .fc-front .q{font-family:var(--display);font-size:1.5rem;font-weight:600;line-height:1.18;}
+  .fc-front .hint{position:absolute;bottom:16px;font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);opacity:.7;}
+  .fc-back{background:linear-gradient(160deg,var(--oxblood),var(--oxblood-deep));color:#fbeee2;transform:rotateY(180deg);}
+  .fc-back .a{font-size:1.06rem;line-height:1.5;}
+  .fc-back .a b{color:#ffe6bd;}
+  .fc-controls{display:flex;gap:12px;align-items:center;flex-wrap:wrap;justify-content:center;}
+  .btn{font-family:var(--body);font-size:1rem;border:1px solid var(--oxblood);background:var(--card);color:var(--oxblood);padding:10px 22px;border-radius:999px;cursor:pointer;transition:.16s;font-weight:600;}
+  .btn:hover{background:var(--oxblood);color:#fff;transform:translateY(-1px);}
+  .btn.solid{background:var(--oxblood);color:#fff;}
+  .btn.solid:hover{background:var(--oxblood-deep);}
+  .counter{font-family:var(--display);font-weight:600;color:var(--ink-soft);min-width:64px;text-align:center;}
+
+  /* QUIZ */
+  .quiz{margin-top:8px;}
+  .qcard{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 24px;margin:18px 0;box-shadow:0 10px 30px -26px rgba(60,30,20,.6);}
+  .qcard .qtext{font-family:var(--display);font-size:1.16rem;font-weight:600;margin-bottom:14px;}
+  .qcard .qtext span{color:var(--oxblood);}
+  .opt{display:block;width:100%;text-align:left;border:1px solid var(--line);background:var(--paper);border-radius:10px;padding:11px 16px;margin:7px 0;cursor:pointer;font-family:var(--body);font-size:1rem;transition:.14s;}
+  .opt:hover{border-color:var(--oxblood);}
+  .opt.correct{background:#e7f1e7;border-color:var(--teal);color:#143f3a;font-weight:600;}
+  .opt.wrong{background:#f7e3e3;border-color:var(--oxblood);color:var(--oxblood-deep);}
+  .opt:disabled{cursor:default;}
+  .expl{margin-top:10px;font-size:.94rem;color:var(--ink-soft);border-top:1px dashed var(--line);padding-top:10px;display:none;}
+  .expl.show{display:block;}
+  .score{font-family:var(--display);font-size:1.3rem;font-weight:700;text-align:center;margin:20px 0;color:var(--oxblood);}
+
+  footer{padding:48px 0 70px;border-top:1px solid var(--line);color:var(--ink-soft);font-size:.92rem;text-align:center;}
+  footer b{color:var(--oxblood);}
+  .backtop{display:inline-block;margin-left:10px;color:var(--oxblood);text-decoration:none;border-bottom:1px dotted var(--oxblood);}
+
+  @media(max-width:640px){
+    body{font-size:18px;}
+    .num{font-size:2rem;}
+    .flashcard{height:300px;}
+    .fc-front .q{font-size:1.25rem;}
+  }
+  @media print{
+    #progress,nav.toc,.study,.backtop{display:none;}
+    body{background:#fff;}
+  }
+</style>
+</head>
+<body>
+<div id="progress"></div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="kicker">Zaliczenie · Etyka prawnicza i wartości prawa</div>
+    <h1>Etyka <span class="em">na 5.0</span></h1>
+    <p class="lede">Kompletne, uporządkowane opracowanie wszystkich 16 zagadnień — z podstawą konstytucyjną, kodeksami etyki zawodowej, przykładami oraz aktywną powtórką (fiszki + quiz). Zrobione tak, żebyś nauczył się szybko i zdał na maksa.</p>
+    <div class="meta-row">
+      <span class="chip"><b>Termin:</b> 3 / 10 czerwca</span>
+      <span class="chip"><b>Lektury:</b> Pietrzykowski, Bogucka — <i>Etyka w administracji</i></span>
+      <span class="chip">Chauvin, Stawecki, Winczorek — <i>Wstęp do prawoznawstwa</i></span>
+      <span class="chip"><b>Forma:</b> 3 teksty · analiza na podstawie Konstytucji i etyki</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <nav class="toc">
+    <h2>Spis zagadnień</h2>
+    <div class="toc-grid">
+      <a href="#z1"><span class="n">1</span>Pojęcie etyki, rodzaje, źródła</a>
+      <a href="#z2"><span class="n">2</span>Etyka ogólna a etyka deontologiczna</a>
+      <a href="#z3"><span class="n">3</span>Godność człowieka</a>
+      <a href="#z4"><span class="n">4</span>Prawnik — zawód zaufania publicznego</a>
+      <a href="#z5"><span class="n">5</span>Formuła Radbrucha</a>
+      <a href="#z6"><span class="n">6</span>Tolerancja</a>
+      <a href="#z7"><span class="n">7</span>Wolność słowa</a>
+      <a href="#z8"><span class="n">8</span>Równość</a>
+      <a href="#z9"><span class="n">9</span>Zakaz dyskryminacji</a>
+      <a href="#z10"><span class="n">10</span>Wartości etyki prawniczej</a>
+      <a href="#z11"><span class="n">11</span>Bezstronność i niezawisłość sędziego</a>
+      <a href="#z12"><span class="n">12</span>Nieskazitelny charakter sędziego</a>
+      <a href="#z13"><span class="n">13</span>Niezależność prokuratora</a>
+      <a href="#z14"><span class="n">14</span>Obowiązek prawny i etyczny prokuratora</a>
+      <a href="#z15"><span class="n">15</span>Adwokat–klient: podstawy etyczne</a>
+      <a href="#z16"><span class="n">16</span>Adwokat–klient: zaufanie</a>
+      <a href="#cmp"><span class="n">★</span>Porównania i granice</a>
+      <a href="#study"><span class="n">⚡</span>Fiszki + quiz</a>
+    </div>
+  </nav>
+
+  <!-- 1 -->
+  <section class="topic" id="z1">
+    <div class="topic-head"><div class="num">01</div><div><h2 class="tt">Pojęcie etyki, podstawowe rodzaje, źródła</h2></div></div>
+    <div class="topic-body">
+      <p><span class="term">Etyka</span> to dział filozofii praktycznej — <strong>refleksja (teoria) nad moralnością</strong>: nad tym, co dobre i złe, słuszne i niesłuszne, oraz nad uzasadnieniem ocen i norm postępowania. Trzeba ją odróżnić od <span class="term">moralności</span>, czyli faktycznie obowiązującego w danej społeczności zbioru norm, ocen i wzorów zachowań. W skrócie: <strong>moralność to przedmiot, etyka to nauka o tym przedmiocie.</strong></p>
+      <p><strong>Podstawowe rodzaje (działy) etyki:</strong></p>
+      <ul>
+        <li><span class="term">Etyka opisowa (deskryptywna)</span> — opisuje i wyjaśnia, jakie normy faktycznie obowiązują w danej grupie (traktuje moralność jako fakt społeczny).</li>
+        <li><span class="term">Etyka normatywna</span> — formułuje i uzasadnia normy: wskazuje, jak <em>należy</em> postępować. Główne nurty: <strong>etyka cnót</strong> (Arystoteles — nacisk na charakter), <strong>etyka deontologiczna</strong> (Kant — obowiązek, słuszność czynu niezależnie od skutków), <strong>konsekwencjalizm / utylitaryzm</strong> (Bentham, Mill — ocena czynu wg skutków, maksymalizacja użyteczności).</li>
+        <li><span class="term">Metaetyka</span> — analizuje język i status zdań moralnych (czy „dobro" jest poznawalne, co znaczą pojęcia etyczne).</li>
+      </ul>
+      <p>Drugi ważny podział to <strong>etyka ogólna</strong> (uniwersalne zasady) i <strong>etyka szczegółowa / stosowana</strong> (bioetyka, etyka biznesu, <strong>etyka zawodowa</strong>).</p>
+      <p><strong>Źródła norm etycznych:</strong> rozum (etyka racjonalistyczna), <strong>natura / prawo naturalne</strong>, religia, tradycja i obyczaj, umowa społeczna, autorytet oraz <strong>sumienie</strong> jednostki.</p>
+      <div class="tip"><span class="lbl">Na egzaminie</span> Najczęstsza pułapka: mylenie etyki z moralnością. Pamiętaj — etyka to refleksja <em>nad</em> moralnością. Umiej wskazać trzy działy (opisowa / normatywna / metaetyka) i trzy wielkie nurty normatywne (cnoty / deontologia / utylitaryzm).</div>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section class="topic" id="z2">
+    <div class="topic-head"><div class="num">02</div><div><h2 class="tt">Etyka ogólna a etyka deontologiczna (zawodowa)</h2></div></div>
+    <div class="topic-body">
+      <p><span class="term">Etyka ogólna</span> formułuje <strong>uniwersalne zasady moralne</strong> odnoszące się do każdego człowieka niezależnie od pełnionej roli (np. „nie kłam", „szanuj godność drugiego"). Szuka ogólnych kryteriów dobra.</p>
+      <p><span class="term">Etyka deontologiczna</span> — tu rozumiana jako <strong>etyka zawodowa / deontologia zawodowa</strong> (gr. <span class="latin">déon</span> = powinność) — to zespół <strong>szczegółowych norm i obowiązków</strong> związanych z wykonywaniem konkretnego zawodu, zwykle <strong>skodyfikowanych</strong> (kodeksy etyki zawodowej) i powiązanych z <strong>odpowiedzialnością dyscyplinarną</strong>.</p>
+      <div class="tip"><span class="lbl">Uwaga terminologiczna</span> „Deontologia" ma dwa znaczenia: (1) teoria etyczna obowiązku Kanta (przeciwstawiana konsekwencjalizmowi); (2) nauka o obowiązkach zawodowych = etyka zawodowa. W kontekście tej lektury chodzi przede wszystkim o znaczenie (2).</div>
+      <p><strong>Relacja między nimi:</strong> etyka zawodowa jest <strong>konkretyzacją</strong> etyki ogólnej w odniesieniu do roli zawodowej — <strong>nie może być z nią sprzeczna</strong>. Jej funkcje: rozstrzyganie konfliktów ról, podnoszenie standardu (np. bezwzględna tajemnica zawodowa), ochrona zaufania publicznego i godności zawodu.</p>
+      <p><strong>Spór doktrynalny:</strong> czy etyka zawodowa to tylko „etyka ogólna w danym zawodzie", czy autonomiczny zbiór norm? Czy kodeksy służą interesowi publicznemu, czy tworzą przywileje korporacyjne? — warto umieć to zaznaczyć.</p>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section class="topic" id="z3">
+    <div class="topic-head"><div class="num">03</div><div><h2 class="tt">Godność człowieka jako podstawowa wartość etyczna</h2></div></div>
+    <div class="topic-body">
+      <p><span class="term">Godność człowieka</span> (<span class="latin">dignitas</span>) to <strong>przyrodzona i niezbywalna wartość każdego człowieka</strong>, wynikająca z samego faktu człowieczeństwa — nie z zasług, statusu czy nadania przez państwo.</p>
+      <p><strong>Ujęcie filozoficzne:</strong> <strong>Kant</strong> — człowiek jest <em>celem samym w sobie</em>, nie wolno traktować go <em>wyłącznie</em> jako środka; rzeczy mają „cenę", człowiek ma „godność". Tradycja chrześcijańska — człowiek stworzony na obraz Boga.</p>
+      <div class="law"><span class="lbl">Podstawa prawna</span> <span class="art">Art. 30 Konstytucji RP:</span> przyrodzona i niezbywalna godność człowieka jest <strong>źródłem wolności i praw</strong> człowieka i obywatela; jest <strong>nienaruszalna</strong>, a jej poszanowanie i ochrona to obowiązek władz publicznych.</div>
+      <p><strong>Cechy godności:</strong> przyrodzona, niezbywalna (nie można się jej zrzec), nienaruszalna, równa dla wszystkich. Jest <strong>fundamentem całego systemu praw człowieka</strong> i osią etyki prawniczej — od niej wyprowadza się równość, wolność i zakaz dyskryminacji.</p>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section class="topic" id="z4">
+    <div class="topic-head"><div class="num">04</div><div><h2 class="tt">Prawnik jako zawód zaufania publicznego</h2></div></div>
+    <div class="topic-body">
+      <p><span class="term">Zawód zaufania publicznego</span> to zawód polegający na świadczeniu usług o szczególnym charakterze — dotykających dóbr osobistych, wolności i mienia jednostki — które wymagają <strong>zaufania</strong>, bo klient powierza informacje wrażliwe i swoje sprawy życiowe.</p>
+      <div class="law"><span class="lbl">Podstawa prawna</span> <span class="art">Art. 17 ust. 1 Konstytucji RP:</span> można tworzyć <strong>samorządy zawodowe</strong> reprezentujące osoby wykonujące zawody zaufania publicznego i sprawujące <strong>pieczę nad należytym wykonywaniem tych zawodów</strong> w granicach interesu publicznego i dla jego ochrony.</div>
+      <p><strong>Cechy konstytutywne zawodu zaufania publicznego:</strong></p>
+      <ul>
+        <li>szczególne kwalifikacje i wykształcenie;</li>
+        <li>dostęp do informacji wrażliwych klienta + <strong>tajemnica zawodowa</strong>;</li>
+        <li><strong>kodeks etyki zawodowej</strong> i <strong>odpowiedzialność dyscyplinarna</strong>;</li>
+        <li><strong>samorząd zawodowy</strong> sprawujący pieczę;</li>
+        <li>niezależność i osobisty charakter świadczenia.</li>
+      </ul>
+      <p>Do prawniczych zawodów zaufania publicznego należą m.in. <strong>adwokat, radca prawny, notariusz</strong> (a w szerszym ujęciu również sędzia i prokurator). Uzasadnienie: rozstrzygają o wolności, prawach i majątku jednostki.</p>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section class="topic" id="z5">
+    <div class="topic-head"><div class="num">05</div><div><h2 class="tt">Wartości prawa w ujęciu formuły Radbrucha</h2></div></div>
+    <div class="topic-body">
+      <p><strong>Gustav Radbruch</strong> (niemiecki filozof prawa) wskazał <strong>trzy wartości (idee) prawa</strong>, które pozostają w napięciu:</p>
+      <ul>
+        <li><span class="term">Sprawiedliwość</span> — równe traktowanie równych (rdzeń: równość);</li>
+        <li><span class="term">Celowość / słuszność</span> — ukierunkowanie prawa na cele społeczne i dobro wspólne;</li>
+        <li><span class="term">Pewność (bezpieczeństwo) prawa</span> — stabilność, przewidywalność, obowiązywanie prawa stanowionego.</li>
+      </ul>
+      <p><span class="term">Formuła Radbrucha</span> (1946, po doświadczeniu nazizmu) rozstrzyga konflikt między <strong>pewnością prawa a sprawiedliwością</strong>:</p>
+      <ul>
+        <li><strong>Zasada:</strong> co do reguły pierwszeństwo ma prawo pozytywne (pewność prawa) — <strong>nawet gdy jest niesłuszne.</strong></li>
+        <li><strong>Wyjątek (formuła nieznośności):</strong> gdy sprzeczność ustawy ze sprawiedliwością osiąga rozmiar <em>tak nieznośny</em>, że ustawa jako „prawo niesłuszne" musi ustąpić sprawiedliwości.</li>
+        <li><strong>Formuła zaprzeczenia:</strong> gdy ustawa <em>świadomie</em> zaprzecza dążeniu do sprawiedliwości (zwłaszcza świadomie odrzuca równość), w ogóle <strong>traci charakter prawa</strong> — to „ustawowe bezprawie".</li>
+      </ul>
+      <p>Skrót myślowy: <span class="latin">lex iniustissima non est lex</span> — ustawa skrajnie niesprawiedliwa nie jest prawem.</p>
+      <div class="tip"><span class="lbl">Zastosowanie</span> Rozliczenie zbrodni nazistowskich (procesy norymberskie), a po zjednoczeniu Niemiec — sprawy strzelców przy Murze Berlińskim (<span class="latin">Mauerschützen</span>). Formuła to <strong>pomost między pozytywizmem a prawem natury</strong> i wyznaczenie <strong>granicy posłuszeństwa prawu</strong>.</div>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section class="topic" id="z6">
+    <div class="topic-head"><div class="num">06</div><div><h2 class="tt">Tolerancja jako wartość demokratycznego państwa prawnego</h2></div></div>
+    <div class="topic-body">
+      <p><span class="term">Tolerancja</span> to <strong>znoszenie i poszanowanie odmiennych poglądów, przekonań i sposobów życia</strong>, których się nie podziela, przy uznaniu autonomii drugiego człowieka. Nie jest tym samym co obojętność ani relatywizm — zakłada posiadanie własnych przekonań, ale <strong>rezygnację z przymusu</strong> wobec inaczej myślących.</p>
+      <p><strong>Korzenie filozoficzne:</strong> Locke (<em>List o tolerancji</em>), Voltaire, J.S. Mill (<em>O wolności</em>).</p>
+      <div class="law"><span class="lbl">Podstawa prawna</span> <span class="art">Art. 2</span> (demokratyczne państwo prawne), <span class="art">art. 53</span> (wolność sumienia i wyznania), <span class="art">art. 25 ust. 2</span> (bezstronność światopoglądowa władz publicznych) Konstytucji RP. Tolerancja wyraża się w <strong>pluralizmie światopoglądowym</strong>.</div>
+      <p><strong>Granice tolerancji</strong> — „paradoks tolerancji" Poppera: <strong>nie można tolerować nietolerancji</strong> zmierzającej do zniszczenia samej tolerancji. Granicą są godność i prawa innych — stąd zakaz mowy nienawiści i nawoływania do przemocy.</p>
+    </div>
+  </section>
+
+  <!-- 7 -->
+  <section class="topic" id="z7">
+    <div class="topic-head"><div class="num">07</div><div><h2 class="tt">Wolność słowa — ujęcie prawne i etyczne</h2></div></div>
+    <div class="topic-body">
+      <p><strong>Ujęcie prawne.</strong> <span class="term">Wolność słowa</span> obejmuje wolność wyrażania poglądów oraz pozyskiwania i rozpowszechniania informacji.</p>
+      <div class="law"><span class="lbl">Podstawa prawna</span> <span class="art">Art. 54 Konstytucji RP</span> — wolność wyrażania poglądów, zakaz cenzury prewencyjnej i koncesjonowania prasy. Także <span class="art">art. 10 EKPC</span> i <span class="art">art. 19 MPPOiP</span>.</div>
+      <p>Wolność słowa <strong>nie jest absolutna</strong>. Granice: ochrona czci i dobrego imienia (zniesławienie — <strong>art. 212 k.k.</strong>, znieważenie — art. 216 k.k.), zakaz mowy nienawiści i nawoływania do nienawiści (art. 256–257 k.k.), bezpieczeństwo państwa, porządek publiczny, prawa innych. Test ograniczeń — <strong>art. 31 ust. 3 Konstytucji</strong>: tylko ustawą, gdy konieczne w demokratycznym państwie, <strong>proporcjonalnie</strong> i bez naruszenia istoty wolności.</p>
+      <p><strong>Ujęcie etyczne.</strong> Wolność słowa łączy się z <strong>odpowiedzialnością za słowo</strong>: prawdziwością, rzetelnością, poszanowaniem godności innych. To, co prawnie dozwolone, nie zawsze jest etycznie słuszne — etyka (np. dziennikarska, debaty publicznej) wyznacza dodatkowe granice: nie krzywdzić, nie manipulować, nie szerzyć dezinformacji.</p>
+      <div class="tip"><span class="lbl">Granica do pokazania</span> Klasyczne ćwiczenie egzaminacyjne: ta sama wypowiedź może być prawnie legalna, a etycznie naganna (np. brutalna, lecz prawdziwa krytyka). Umiej rozdzielić „wolno prawnie" od „wypada etycznie".</div>
+    </div>
+  </section>
+
+  <!-- 8 -->
+  <section class="topic" id="z8">
+    <div class="topic-head"><div class="num">08</div><div><h2 class="tt">Równość</h2></div></div>
+    <div class="topic-body">
+      <div class="law"><span class="lbl">Podstawa prawna</span> <span class="art">Art. 32 ust. 1 Konstytucji RP:</span> wszyscy są wobec prawa równi i mają prawo do równego traktowania przez władze publiczne. <span class="art">Art. 33</span> — równość kobiet i mężczyzn.</div>
+      <p><strong>Dwa wymiary równości:</strong></p>
+      <ul>
+        <li><span class="term">Równość formalna (wobec prawa)</span> — jednakowe stosowanie prawa do wszystkich.</li>
+        <li><span class="term">Równość materialna (rzeczywista)</span> — wyrównywanie faktycznych szans; może uzasadniać <strong>działania wyrównawcze (dyskryminację pozytywną)</strong>.</li>
+      </ul>
+      <p><strong>Reguła arystotelesowska:</strong> podmioty <em>podobne</em> (należące do tej samej istotnej klasy) traktować podobnie, a <em>różne</em> — różnie. Dopuszczalne zróżnicowanie musi opierać się na <strong>relewantnym kryterium</strong>, być <strong>proporcjonalne</strong> i powiązane z innymi wartościami konstytucyjnymi. Inaczej staje się dyskryminacją.</p>
+    </div>
+  </section>
+
+  <!-- 9 -->
+  <section class="topic" id="z9">
+    <div class="topic-head"><div class="num">09</div><div><h2 class="tt">Zakaz dyskryminacji</h2></div></div>
+    <div class="topic-body">
+      <div class="law"><span class="lbl">Podstawa prawna</span> <span class="art">Art. 32 ust. 2 Konstytucji RP:</span> nikt nie może być dyskryminowany w życiu politycznym, społecznym lub gospodarczym z jakiejkolwiek przyczyny. Także <span class="art">art. 14 EKPC</span> i Protokół nr 12, dyrektywy UE, ustawa o równym traktowaniu.</div>
+      <p><span class="term">Dyskryminacja</span> to <strong>nieuzasadnione, gorsze traktowanie</strong> ze względu na cechę prawnie chronioną (płeć, rasa, pochodzenie etniczne, religia, wiek, niepełnosprawność, orientacja itd.).</p>
+      <ul>
+        <li><span class="term">Dyskryminacja bezpośrednia</span> — wprost gorsze traktowanie z powodu cechy chronionej.</li>
+        <li><span class="term">Dyskryminacja pośrednia</span> — pozornie neutralne kryterium, które faktycznie stawia daną grupę w gorszej sytuacji.</li>
+        <li>Pokrewne: molestowanie, zachęcanie/nakłanianie do dyskryminacji.</li>
+      </ul>
+      <div class="tip"><span class="lbl">Granica — kluczowe!</span> Nie każde zróżnicowanie to dyskryminacja. Jeśli odmienne traktowanie opiera się na <strong>obiektywnym, racjonalnie uzasadnionym i proporcjonalnym kryterium</strong> — jest <strong>dozwolone</strong>. Dyskryminacja = zróżnicowanie <em>bez</em> takiego uzasadnienia. To dopełnienie zasady równości (zagadnienie 8).</div>
+    </div>
+  </section>
+
+  <!-- 10 -->
+  <section class="topic" id="z10">
+    <div class="topic-head"><div class="num">10</div><div><h2 class="tt">Podstawowe wartości etyki prawniczej</h2></div></div>
+    <div class="topic-body">
+      <p>Etyka prawnicza opiera się na zespole wartości wspólnych dla zawodów prawniczych (z różnym rozłożeniem akcentów):</p>
+      <ul>
+        <li><span class="term">Niezależność</span> — od nacisków zewnętrznych i własnego interesu (a u sędziów <span class="term">niezawisłość</span>).</li>
+        <li><span class="term">Bezstronność / obiektywizm</span> — równy dystans, brak uprzedzeń.</li>
+        <li><span class="term">Uczciwość, prawość, nieskazitelność charakteru.</span></li>
+        <li><span class="term">Tajemnica zawodowa</span> — ochrona informacji powierzonych.</li>
+        <li><span class="term">Lojalność wobec klienta</span> (adwokat, radca) i <strong>unikanie konfliktu interesów</strong>.</li>
+        <li><span class="term">Kompetencja, staranność, profesjonalizm.</span></li>
+        <li><span class="term">Godność zawodu</span> i dbałość o <strong>zaufanie publiczne</strong>.</li>
+        <li>Służba <strong>sprawiedliwości</strong> i poszanowanie <strong>godności człowieka</strong> (wartość nadrzędna — zagadnienie 3).</li>
+      </ul>
+      <div class="tip"><span class="lbl">Struktura odpowiedzi</span> Pokaż, że te wartości wyrastają z <strong>godności człowieka</strong> i z charakteru zawodu zaufania publicznego, a w poszczególnych profesjach przybierają różną postać (sędzia — niezawisłość i bezstronność; adwokat — lojalność i tajemnica; prokurator — obiektywizm).</div>
+    </div>
+  </section>
+
+  <!-- 11 -->
+  <section class="topic" id="z11">
+    <div class="topic-head"><div class="num">11</div><div><h2 class="tt">Bezstronność i niezawisłość w etyce sędziowskiej</h2></div></div>
+    <div class="topic-body">
+      <p><span class="term">Niezawisłość sędziowska</span> — sędzia w orzekaniu podlega <strong>wyłącznie Konstytucji i ustawom</strong> i jest wolny od jakiejkolwiek zależności. Ma wymiar <strong>zewnętrzny</strong> (wolność od nacisków władzy, stron, mediów) i <strong>wewnętrzny</strong> (wolność od własnych uprzedzeń i interesów).</p>
+      <div class="law"><span class="lbl">Podstawa prawna</span> <span class="art">Art. 178 ust. 1 Konstytucji</span> — niezawisłość i podległość tylko Konstytucji i ustawom; <span class="art">art. 173</span> — niezależność (odrębność) sądów jako władzy; <span class="art">art. 178 ust. 3</span> — apolityczność. Gwarancje: nieusuwalność, immunitet, status materialny.</div>
+      <p><span class="term">Bezstronność</span> — <strong>równy dystans do stron</strong>, rozstrzyganie wyłącznie na podstawie prawa i faktów. Zasada <span class="latin">nemo iudex in causa sua</span> (nikt nie może być sędzią we własnej sprawie); instytucja <strong>wyłączenia sędziego</strong> (z mocy ustawy — <span class="latin">iudex inhabilis</span> — lub na wniosek — <span class="latin">iudex suspectus</span>).</p>
+      <p><strong>Różnica pojęć:</strong> niezawisłość dotyczy <em>sędziego</em>, niezależność — <em>sądów</em> (instytucji). Wymiar etyczny: sędzia ma nie tylko <strong>być</strong> bezstronny, ale też <strong>nim się wydawać</strong> — chronić zewnętrzne przejawy bezstronności i zaufanie do sądu (Zbiór Zasad Etyki Zawodowej Sędziów).</p>
+    </div>
+  </section>
+
+  <!-- 12 -->
+  <section class="topic" id="z12">
+    <div class="topic-head"><div class="num">12</div><div><h2 class="tt">Pojęcie nieskazitelnego charakteru w etyce sędziów</h2></div></div>
+    <div class="topic-body">
+      <p><span class="term">Nieskazitelny charakter</span> to <strong>ustawowy warunek</strong> powołania na stanowisko sędziego (Prawo o ustroju sądów powszechnych — sędzią może być m.in. ten, kto „jest nieskazitelnego charakteru").</p>
+      <p>Jest to <strong>klauzula generalna o charakterze ocennym</strong>. Oznacza wysokie standardy moralne: prawość, uczciwość, brak skaz na opinii, nienaganną postawę <strong>zarówno w służbie, jak i w życiu prywatnym</strong>. Sędzia ma unikać zachowań mogących podważyć zaufanie do jego bezstronności i do godności urzędu.</p>
+      <p>Wymóg ten jest <strong>trwały</strong> — nie dotyczy tylko momentu powołania; jego naruszenie wiąże się z <strong>odpowiedzialnością dyscyplinarną</strong> (uchybienie godności urzędu).</p>
+      <div class="tip"><span class="lbl">Punkt krytyczny</span> Warto wskazać słabość pojęcia: jego <strong>nieostrość</strong> rodzi ryzyko uznaniowości i arbitralnej oceny — to dobry materiał na „wyznaczanie granic", którego oczekuje prowadzący.</div>
+    </div>
+  </section>
+
+  <!-- 13 -->
+  <section class="topic" id="z13">
+    <div class="topic-head"><div class="num">13</div><div><h2 class="tt">Niezależność prokuratora</h2></div></div>
+    <div class="topic-body">
+      <p>Kluczowa różnica wobec sędziego: prokuratura działa wg <strong>zasady jednolitości i hierarchicznego podporządkowania</strong>. Dlatego mówimy o <span class="term">niezależności</span> prokuratora, a <strong>nie o niezawisłości</strong>.</p>
+      <p><strong>Treść niezależności</strong> (Prawo o prokuraturze): prokurator przy wykonywaniu czynności jest <em>niezależny</em>, ale <strong>z zastrzeżeniem podporządkowania poleceniom przełożonego</strong>. Mechanizmy ochronne:</p>
+      <ul>
+        <li>polecenie dotyczące <strong>treści czynności</strong> — prokurator może żądać wydania go <strong>na piśmie</strong>;</li>
+        <li>może żądać <strong>zmiany polecenia</strong> lub <strong>wyłączenia</strong> od wykonania czynności;</li>
+        <li>nie wolno wydawać poleceń, które zmierzałyby do dokonania czynu <strong>sprzecznego z prawem</strong>.</li>
+      </ul>
+      <p>Niezależność równoważy zatem <strong>hierarchiczność</strong> i służy <strong>obiektywizmowi</strong> (art. 4 k.p.k. — badanie okoliczności na korzyść i na niekorzyść). To napięcie między posłuszeństwem służbowym a samodzielnością oceny jest istotą zagadnienia.</p>
+    </div>
+  </section>
+
+  <!-- 14 -->
+  <section class="topic" id="z14">
+    <div class="topic-head"><div class="num">14</div><div><h2 class="tt">Obowiązek prawny i obowiązek etyczny w pracy prokuratora</h2></div></div>
+    <div class="topic-body">
+      <p><span class="term">Obowiązek prawny</span> wynika z przepisów (Prawo o prokuraturze, k.p.k.): ściganie przestępstw, <strong>strzeżenie praworządności</strong>, <strong>obiektywizm</strong>, działanie zgodne z prawem oraz wykonywanie poleceń przełożonego (z opisanymi zastrzeżeniami).</p>
+      <p><span class="term">Obowiązek etyczny</span> wynika z zasad etyki zawodowej (Zbiór Zasad Etyki Zawodowej Prokuratorów): kierowanie się <strong>dobrem wymiaru sprawiedliwości</strong>, uczciwość, bezstronność, poszanowanie godności człowieka, sumienność, dbałość o autorytet zawodu.</p>
+      <table class="cmp">
+        <tr><th>Kryterium</th><th>Obowiązek prawny</th><th>Obowiązek etyczny</th></tr>
+        <tr><td>Źródło</td><td>ustawa, k.p.k.</td><td>kodeks etyki, sumienie</td></tr>
+        <tr><td>Sankcja</td><td>odpowiedzialność prawna/służbowa</td><td>odpowiedzialność dyscyplinarna, ocena moralna</td></tr>
+        <tr><td>Zakres</td><td>minimum wyznaczone prawem</td><td>często szerszy niż prawo</td></tr>
+      </table>
+      <div class="tip"><span class="lbl">Granica / konflikt</span> Napięcie pojawia się, gdy polecenie przełożonego (prawny obowiązek posłuszeństwa) koliduje z obiektywizmem lub sumieniem. Rozwiązanie: mechanizmy z zagadnienia 13 (żądanie na piśmie, zmiana, wyłączenie). Obowiązek etyczny może <strong>wykraczać</strong> poza prawny — np. powstrzymanie się od czynności formalnie dozwolonej, lecz niesłusznej.</div>
+    </div>
+  </section>
+
+  <!-- 15 -->
+  <section class="topic" id="z15">
+    <div class="topic-head"><div class="num">15</div><div><h2 class="tt">Etyczne podstawy relacji adwokata z klientem</h2></div></div>
+    <div class="topic-body">
+      <p><strong>Źródło:</strong> Zbiór Zasad Etyki Adwokackiej i Godności Zawodu (Kodeks Etyki Adwokackiej — uchwała NRA) oraz ustawa Prawo o adwokaturze.</p>
+      <p><strong>Filary relacji:</strong></p>
+      <ul>
+        <li><span class="term">Tajemnica adwokacka</span> — bezwzględna i nieograniczona w czasie; adwokata <strong>nie można z niej zwolnić</strong> (zwłaszcza co do obrony karnej).</li>
+        <li><span class="term">Lojalność i dobro klienta</span> — działanie w najlepiej pojętym interesie klienta.</li>
+        <li><span class="term">Zakaz konfliktu interesów</span> — nie wolno reprezentować stron o sprzecznych interesach.</li>
+        <li><span class="term">Niezależność adwokata</span> — także <em>wobec klienta</em>: adwokat nie wykonuje poleceń sprzecznych z prawem czy etyką.</li>
+        <li><span class="term">Uczciwość, kompetencja, staranność</span>, rzetelne informowanie, jasne zasady honorarium, godność zawodu i umiar w reklamie.</li>
+      </ul>
+      <div class="tip"><span class="lbl">Granica lojalności</span> Adwokat służy klientowi, ale <strong>nie może uczestniczyć w czynie bezprawnym</strong>. Lojalność wobec klienta nie znosi obowiązków wobec prawa i wymiaru sprawiedliwości — to klasyczne „wyznaczanie granic".</div>
+    </div>
+  </section>
+
+  <!-- 16 -->
+  <section class="topic" id="z16">
+    <div class="topic-head"><div class="num">16</div><div><h2 class="tt">Podstawy zaufania w relacji adwokat–klient</h2></div></div>
+    <div class="topic-body">
+      <p><strong>Zaufanie</strong> jest istotą tej relacji (adwokat to zawód zaufania publicznego — zagadnienie 4). Na czym się opiera?</p>
+      <ul>
+        <li><span class="term">Poufność (tajemnica adwokacka)</span> — klient może być w pełni szczery, bo wie, że jego informacje są chronione; to <strong>warunek skutecznej pomocy prawnej i obrony</strong>.</li>
+        <li><span class="term">Lojalność</span> i pierwszeństwo interesu klienta.</li>
+        <li><span class="term">Niezależność</span> adwokata — pewność, że nie ulega on naciskom.</li>
+        <li><span class="term">Kompetencja i staranność</span> oraz brak konfliktu interesów.</li>
+        <li><strong>Uczciwość finansowa</strong> — przejrzyste zasady wynagrodzenia.</li>
+      </ul>
+      <div class="law"><span class="lbl">Funkcja ustrojowa</span> Tajemnica i zaufanie chronią <strong>nie adwokata, lecz klienta</strong> i całą instytucję obrony. Wiążą się z <span class="art">art. 42 ust. 2 Konstytucji</span> — prawem do obrony. Bez zaufania prawo do obrony staje się iluzoryczne.</div>
+      <p><strong>Powiązanie:</strong> zagadnienia 15 i 16 to dwie strony tej samej relacji — 15 opisuje <em>obowiązki adwokata</em>, 16 wyjaśnia, <em>dlaczego</em> te obowiązki budują zaufanie.</p>
+    </div>
+  </section>
+
+  <!-- COMPARISONS -->
+  <section class="topic" id="cmp">
+    <div class="topic-head"><div class="num">★</div><div><h2 class="tt">Porównania i granice — „opracowywać, porównywać, wyznaczać granice"</h2></div></div>
+    <div class="topic-body">
+      <p>Prowadzący wprost oczekuje porównań i wyznaczania granic. Oto gotowe zestawienia, które warto umieć z pamięci:</p>
+
+      <table class="cmp">
+        <tr><th>Zestawienie</th><th>Sędzia</th><th>Prokurator</th></tr>
+        <tr><td>Atrybut</td><td>niezawisłość</td><td>niezależność</td></tr>
+        <tr><td>Podległość</td><td>tylko Konstytucji i ustawom</td><td>prawu + poleceniom przełożonego</td></tr>
+        <tr><td>Organizacja</td><td>brak hierarchii orzeczniczej</td><td>hierarchiczne podporządkowanie</td></tr>
+        <tr><td>Podstawa</td><td>art. 178 Konstytucji</td><td>Prawo o prokuraturze</td></tr>
+      </table>
+
+      <table class="cmp">
+        <tr><th>Pojęcie</th><th>Równość (zag. 8)</th><th>Zakaz dyskryminacji (zag. 9)</th></tr>
+        <tr><td>Charakter</td><td>nakaz pozytywny — równe traktowanie</td><td>zakaz negatywny — gorszego traktowania</td></tr>
+        <tr><td>Test</td><td>podobne traktuj podobnie</td><td>brak relewantnego, proporcjonalnego kryterium</td></tr>
+        <tr><td>Podstawa</td><td>art. 32 ust. 1</td><td>art. 32 ust. 2</td></tr>
+      </table>
+
+      <p><strong>Inne osie porównań (umiej rozwinąć):</strong></p>
+      <ul>
+        <li><strong>Etyka ogólna vs deontologiczna</strong> — uniwersalna i powszechna vs szczegółowa, zawodowa, skodyfikowana (zag. 2).</li>
+        <li><strong>Wolność słowa: prawo vs etyka</strong> — „wolno prawnie" ≠ „wypada etycznie"; obie wyznaczają granice (zag. 7).</li>
+        <li><strong>Obowiązek prawny vs etyczny</strong> (prokurator) — prawo wyznacza minimum, etyka idzie dalej (zag. 14).</li>
+        <li><strong>Tajemnica adwokacka vs obowiązek prawdy</strong> — gdzie kończy się lojalność wobec klienta, a zaczyna obowiązek wobec wymiaru sprawiedliwości (zag. 15–16).</li>
+        <li><strong>Pewność prawa vs sprawiedliwość</strong> — to właśnie rozstrzyga formuła Radbrucha (zag. 5).</li>
+        <li><strong>Granica tolerancji</strong> — paradoks Poppera: nie tolerujemy nietolerancji niszczącej tolerancję (zag. 6).</li>
+      </ul>
+      <div class="tip"><span class="lbl">Złota nić odpowiedzi</span> Wszystko da się powiązać z <strong>godnością człowieka (art. 30)</strong> jako wartością źródłową. Z niej wynikają równość, wolność i zakaz dyskryminacji, a z nich — wartości etyki zawodowej prawników. Pokazanie tej osi robi wrażenie i daje spójność wypowiedzi.</div>
+    </div>
+  </section>
+
+</div>
+
+<!-- STUDY MODE -->
+<div class="study" id="study">
+  <div class="wrap">
+    <h2 class="sec">Aktywna <span class="em">powtórka</span></h2>
+    <p class="sub">Najszybszy sposób na zapamiętanie: aktywne przypominanie. Najpierw przejdź fiszki (zakryj odpowiedź, sprawdź się), potem rozwiąż mini-quiz.</p>
+
+    <!-- FLASHCARDS -->
+    <div class="fc-stage">
+      <div class="flashcard" id="flashcard" onclick="flipCard()">
+        <div class="fc-inner">
+          <div class="fc-face fc-front"><div class="q" id="fcQ">—</div><div class="hint">kliknij, aby odwrócić</div></div>
+          <div class="fc-face fc-back"><div class="a" id="fcA">—</div></div>
+        </div>
+      </div>
+      <div class="fc-controls">
+        <button class="btn" onclick="prevCard()">← Poprzednia</button>
+        <span class="counter" id="fcCounter">1 / 1</span>
+        <button class="btn solid" onclick="nextCard()">Następna →</button>
+        <button class="btn" onclick="shuffleCards()">🔀 Tasuj</button>
+      </div>
+    </div>
+
+    <!-- QUIZ -->
+    <h2 class="sec" style="font-size:clamp(1.4rem,3vw,1.9rem);margin-top:40px;">Mini-<span class="em">quiz</span></h2>
+    <p class="sub">Po jednym kliknięciu zobaczysz poprawną odpowiedź i krótkie wyjaśnienie.</p>
+    <div class="quiz" id="quiz"></div>
+    <div class="score" id="score"></div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    Powodzenia na zaliczeniu z etyki — <b>celuj w 5.0</b>. Materiał oparty na zakresie z Twoich zagadnień (Pietrzykowski/Bogucka, Chauvin/Stawecki/Winczorek) oraz na przepisach Konstytucji RP i zasadach etyki zawodowej.
+    <a class="backtop" href="#top">↑ na górę</a>
+  </div>
+</footer>
+
+<script>
+/* ---------- FLASHCARDS ---------- */
+const cards = [
+  {q:"Czym różni się etyka od moralności?", a:"<b>Moralność</b> = faktycznie obowiązujące normy i oceny w danej grupie. <b>Etyka</b> = refleksja / teoria nad moralnością."},
+  {q:"Trzy działy etyki", a:"<b>Opisowa</b> (jakie normy faktycznie obowiązują), <b>normatywna</b> (jak należy postępować), <b>metaetyka</b> (status i znaczenie pojęć moralnych)."},
+  {q:"Trzy wielkie nurty etyki normatywnej", a:"Etyka <b>cnót</b> (Arystoteles), <b>deontologiczna</b> (Kant — obowiązek), <b>konsekwencjalizm/utylitaryzm</b> (Bentham, Mill — skutki)."},
+  {q:"Dwa znaczenia „deontologii”", a:"(1) teoria etyczna obowiązku Kanta; (2) etyka zawodowa — nauka o obowiązkach zawodowych. Etyka zawodowa to konkretyzacja etyki ogólnej."},
+  {q:"Godność człowieka — podstawa konstytucyjna i cechy", a:"<b>Art. 30 Konstytucji</b>. Przyrodzona, niezbywalna, nienaruszalna, równa. Źródło wszystkich praw i wolności."},
+  {q:"Kantowskie ujęcie godności", a:"Człowiek jest <b>celem samym w sobie</b>, nie wolno traktować go wyłącznie jako środka. Ma „godność”, nie „cenę”."},
+  {q:"Zawód zaufania publicznego — podstawa i cechy", a:"<b>Art. 17 Konstytucji</b> (samorząd + piecza). Cechy: kwalifikacje, tajemnica zawodowa, kodeks etyki, odpowiedzialność dyscyplinarna, niezależność."},
+  {q:"Trzy wartości prawa wg Radbrucha", a:"<b>Sprawiedliwość</b>, <b>celowość/słuszność</b>, <b>pewność (bezpieczeństwo) prawa</b>."},
+  {q:"Formuła Radbrucha — istota", a:"Pierwszeństwo ma pewność prawa, CHYBA że sprzeczność ze sprawiedliwością jest <b>nieznośna</b> — wtedy ustawa ustępuje. Świadome odrzucenie równości = „ustawowe bezprawie”. <i>Lex iniustissima non est lex.</i>"},
+  {q:"Tolerancja — czym NIE jest i gdzie ma granicę", a:"Nie jest obojętnością ani relatywizmem. Granica: <b>paradoks Poppera</b> — nie tolerujemy nietolerancji niszczącej tolerancję."},
+  {q:"Wolność słowa — podstawa i test ograniczeń", a:"<b>Art. 54 Konstytucji</b> (+ art. 10 EKPC). Ograniczenia: <b>art. 31 ust. 3</b> — ustawą, koniecznie, proporcjonalnie, bez naruszenia istoty."},
+  {q:"Wolność słowa: prawo vs etyka", a:"To, co prawnie dozwolone, nie zawsze jest etycznie słuszne. Etyka dodaje odpowiedzialność za słowo: prawdę, rzetelność, poszanowanie godności."},
+  {q:"Równość — dwa wymiary + podstawa", a:"<b>Art. 32 ust. 1</b>. Formalna (wobec prawa) i materialna (rzeczywista). Reguła: podobne traktuj podobnie, różne — różnie."},
+  {q:"Dyskryminacja bezpośrednia vs pośrednia", a:"<b>Bezpośrednia</b> — wprost gorsze traktowanie z powodu cechy chronionej. <b>Pośrednia</b> — neutralne kryterium faktycznie krzywdzące grupę. Podstawa: art. 32 ust. 2."},
+  {q:"Kiedy zróżnicowanie NIE jest dyskryminacją?", a:"Gdy opiera się na <b>obiektywnym, racjonalnym i proporcjonalnym</b> kryterium."},
+  {q:"Niezawisłość vs niezależność (sędzia)", a:"<b>Niezawisłość</b> dotyczy sędziego (podległy tylko prawu — art. 178). <b>Niezależność</b> dotyczy sądów jako instytucji (art. 173)."},
+  {q:"Bezstronność sędziego — zasada i instytucja", a:"<i>Nemo iudex in causa sua.</i> Instytucja: wyłączenie sędziego (<i>iudex inhabilis</i> z ustawy / <i>iudex suspectus</i> na wniosek). Trzeba być i wydawać się bezstronnym."},
+  {q:"Nieskazitelny charakter sędziego", a:"Ustawowy, ocenny warunek powołania (u.s.p.). Wysokie standardy moralne w służbie i w życiu prywatnym; trwały; ryzyko nieostrości."},
+  {q:"Niezależność prokuratora — na czym polega?", a:"Niezależny, ale <b>z zastrzeżeniem podporządkowania poleceniom</b>. Może żądać polecenia na piśmie, jego zmiany lub wyłączenia. Nie: niezawisłość."},
+  {q:"Obowiązek prawny vs etyczny (prokurator)", a:"Prawny — z ustawy/k.p.k. (minimum). Etyczny — z kodeksu etyki/sumienia (często szerszy). Spina je obiektywizm i dobro wymiaru sprawiedliwości."},
+  {q:"Filary relacji adwokat–klient", a:"Tajemnica adwokacka, lojalność/dobro klienta, zakaz konfliktu interesów, niezależność (też wobec klienta), kompetencja i uczciwość."},
+  {q:"Dlaczego tajemnica adwokacka chroni klienta, nie adwokata?", a:"Bo umożliwia szczerość klienta i <b>realne prawo do obrony</b> (art. 42 ust. 2 Konstytucji). Bez zaufania obrona staje się iluzoryczna."},
+];
+let ci=0, order=[...Array(cards.length).keys()];
+function renderCard(){
+  const c=cards[order[ci]];
+  document.getElementById('flashcard').classList.remove('flip');
+  setTimeout(()=>{ document.getElementById('fcQ').innerHTML=c.q; document.getElementById('fcA').innerHTML=c.a; },10);
+  document.getElementById('fcCounter').textContent=(ci+1)+' / '+order.length;
+}
+function flipCard(){ document.getElementById('flashcard').classList.toggle('flip'); }
+function nextCard(){ ci=(ci+1)%order.length; renderCard(); }
+function prevCard(){ ci=(ci-1+order.length)%order.length; renderCard(); }
+function shuffleCards(){ for(let i=order.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[order[i],order[j]]=[order[j],order[i]];} ci=0; renderCard(); }
+renderCard();
+
+/* ---------- QUIZ ---------- */
+const quiz=[
+  {q:"Formuła Radbrucha rozstrzyga konflikt między:", o:["wolnością a równością","pewnością prawa a sprawiedliwością","prawem a obyczajem","sądem a prokuraturą"], c:1, e:"Co do zasady wygrywa pewność prawa — chyba że niesprawiedliwość jest nieznośna."},
+  {q:"Atrybutem sędziego jest niezawisłość, a prokuratora:", o:["niezawisłość","nieusuwalność","niezależność","bezkarność"], c:2, e:"Prokurator jest niezależny, ale podlega poleceniom przełożonego (hierarchia)."},
+  {q:"Godność człowieka reguluje w Konstytucji RP:", o:["art. 17","art. 30","art. 54","art. 178"], c:1, e:"Art. 30 — godność przyrodzona, niezbywalna, nienaruszalna, źródło praw."},
+  {q:"„Nikt nie może być sędzią we własnej sprawie” to wyraz zasady:", o:["niezawisłości","bezstronności","jawności","legalizmu"], c:1, e:"To rdzeń bezstronności; skutkuje instytucją wyłączenia sędziego."},
+  {q:"Tajemnica adwokacka chroni przede wszystkim:", o:["adwokata przed odpowiedzialnością","interes klienta i prawo do obrony","sąd","samorząd adwokacki"], c:1, e:"Umożliwia szczerość klienta i realizację prawa do obrony (art. 42 ust. 2)."},
+  {q:"Zawody zaufania publicznego i samorządy zawodowe to:", o:["art. 17 Konstytucji","art. 32 Konstytucji","art. 2 Konstytucji","art. 10 EKPC"], c:0, e:"Art. 17 — samorząd sprawujący pieczę nad należytym wykonywaniem zawodu."},
+  {q:"Dyskryminacja pośrednia to:", o:["jawnie gorsze traktowanie","neutralne kryterium faktycznie krzywdzące grupę","brak różnicowania","działanie wyrównawcze"], c:1, e:"Pozornie neutralna reguła, która w praktyce stawia daną grupę w gorszej sytuacji."},
+  {q:"„Paradoks tolerancji” (Popper) oznacza, że:", o:["tolerancja jest obojętnością","nie należy tolerować nietolerancji niszczącej tolerancję","tolerancja jest nieograniczona","tolerancja = relatywizm"], c:1, e:"Granicą tolerancji jest postawa zmierzająca do zniszczenia samej tolerancji."},
+];
+let answered=0, correct=0;
+const qc=document.getElementById('quiz');
+quiz.forEach((item,qi)=>{
+  const card=document.createElement('div'); card.className='qcard';
+  const t=document.createElement('div'); t.className='qtext'; t.innerHTML='<span>'+(qi+1)+'.</span> '+item.q; card.appendChild(t);
+  item.o.forEach((opt,oi)=>{
+    const b=document.createElement('button'); b.className='opt'; b.textContent=opt;
+    b.onclick=()=>{
+      if(b.parentElement.dataset.done) return;
+      b.parentElement.dataset.done="1";
+      const btns=card.querySelectorAll('.opt');
+      btns.forEach((x,xi)=>{ x.disabled=true; if(xi===item.c) x.classList.add('correct'); });
+      if(oi===item.c){ correct++; } else { b.classList.add('wrong'); }
+      answered++;
+      card.querySelector('.expl').classList.add('show');
+      if(answered===quiz.length){ document.getElementById('score').textContent='Wynik: '+correct+' / '+quiz.length+(correct===quiz.length?'  🏆 5.0!':''); }
+    };
+    card.appendChild(b);
+  });
+  const ex=document.createElement('div'); ex.className='expl'; ex.textContent=item.e; card.appendChild(ex);
+  qc.appendChild(card);
+});
+
+/* ---------- PROGRESS BAR ---------- */
+window.addEventListener('scroll',()=>{
+  const h=document.documentElement; const sc=(h.scrollTop)/(h.scrollHeight-h.clientHeight)*100;
+  document.getElementById('progress').style.width=sc+'%';
+});
+</script>
+<a id="top"></a>
+</body>
+</html>
